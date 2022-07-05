@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel: ContentViewModel = .init()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            if viewModel.barcodeImage != nil {
+                Image(uiImage: viewModel.barcodeImage!)
+                    .resizable()
+                    .frame(height: 200)
+            } else {
+                Text("Enter code to generate barcode")
+            }
+            TextField("Enter Code", text: $viewModel.publishedCode)
+                .padding()
+                .overlay {
+                    Capsule()
+                        .stroke(.blue, lineWidth: 1)
+                }
+                .padding()
+        }
     }
 }
 
